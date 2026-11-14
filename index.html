@@ -93,7 +93,7 @@
     <p class="lead">客户端、接入网关、业务服务、Agent、数据与运维的分层关系；上游 Mongo 只读，Redis 只做实时通道。</p>
     <figure class="arch">
       <div class="shot"><img src="screens/architecture.png" alt="整体架构"></div>
-      <figcaption><b>图 1</b>C4 容器图：Tauri → report-server :8099（Auth / Pen / Papers / Reasoning / Teacher / Classroom 内嵌）→ PostgreSQL；上游 Mongo 只读；Agent :18099 / DeepSeek；Redis、Kafka 为 P2/未接虚线。依据 architect 00-MASTER、06 契约、10 审计与 backend/agent/ops 文档。 <a href="architecture.html" target="_blank">动态版</a></figcaption>
+      <figcaption><b>图 1</b>目标态架构（A1–A7 全部成立 · 46 节点 / 64 边）：Tauri → Ingress → report-server :8099 / agent-server :18099 / classroom-gateway :18121；身份、题库、笔迹三条数据管线；PG 主从、Redis Streams、Kafka、Mongo 只读、TDengine+OSS；生产 k8s + 可观测 + CI/CD + 备份/PITR。所有节点 ✅，只有上游只读用虚线。 <a href="architecture.html" target="_blank">动态版</a></figcaption>
     </figure>
   </section>
 
