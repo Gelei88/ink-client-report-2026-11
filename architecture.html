@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><style>
+*{box-sizing:border-box}html,body{margin:0;width:1800px;height:1100px;overflow:hidden}
+body{background:radial-gradient(circle at 50% -12%,rgba(0,84,255,.10),transparent 520px),radial-gradient(circle at 96% 8%,rgba(141,180,255,.22),transparent 480px),linear-gradient(180deg,#f6faff,#eaf4ff 48%,#f8fbff);font-family:-apple-system,"PingFang SC",sans-serif}
+svg{display:block}.t{font-size:13.5px;font-weight:650;fill:#1d1d1f}.s{font-size:10.5px;fill:#5c6270}.m{font:10px ui-monospace,monospace;fill:#5c6270;letter-spacing:.04em}.lane{font:10px ui-monospace,monospace;letter-spacing:.13em;fill:#5c6270}.h{font-size:24px;font-weight:700;letter-spacing:-.02em;fill:#1d1d1f}.sub{font-size:12px;fill:#5c6270}
+.node rect{fill:#fff;stroke:rgba(17,24,39,.11)}.blue rect{fill:#eaf2ff;stroke:#c9dcff}.dark rect{fill:#1d1d1f;stroke:#1d1d1f}.dark .t{fill:#fff}.dark .s{fill:rgba(255,255,255,.66)}.dash rect{fill:rgba(255,255,255,.6);stroke:#b9c3d2;stroke-dasharray:5 4}.warn rect{fill:#fff8e8;stroke:#d8b36a;stroke-dasharray:5 4}
+.flow{fill:none;stroke:#0f66e0;stroke-width:1.7;marker-end:url(#a);stroke-linecap:round}.flow.d{stroke:#9aa6b8;stroke-dasharray:5 5;marker-end:url(#g)}.flow.o{stroke:#a26a0a;stroke-dasharray:6 5;marker-end:url(#o)}.flow.a{stroke-dasharray:7 8;animation:dash 1.6s linear infinite}@keyframes dash{to{stroke-dashoffset:-30}}
+.lbl{font:9.5px ui-monospace,monospace;fill:#5c6270}.dot{fill:#0f66e0}
+</style></head><body>
+<svg width="1800" height="1100" viewBox="0 0 1800 1100">
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#0f66e0"/></marker>
+<marker id="g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#9aa6b8"/></marker>
+<marker id="o" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#a26a0a"/></marker>
+</defs>
+<text x="44" y="48" class="h">星途径智慧笔平台 · 生产架构</text>
+<text x="44" y="68" class="sub">C4 Container / 当前实现 + 设计边界 · 依据 architect / backend / agent / ops 文档（2026-11-13）</text>
+
+<!-- 角色 -->
+<text x="44" y="110" class="lane">角色</text>
+<g class="node blue" transform="translate(44,125)"><rect width="200" height="64" rx="13"/><text x="14" y="25" class="t">老师 / 助教</text><text x="14" y="44" class="s">Tauri 客户端 · 本班 scope</text></g>
+<g class="node blue" transform="translate(44,210)"><rect width="200" height="64" rx="13"/><text x="14" y="25" class="t">学生</text><text x="14" y="44" class="s">Tauri 客户端 · 只看自己</text></g>
+
+<!-- 客户端 -->
+<text x="300" y="110" class="lane">客户端</text>
+<g class="node" transform="translate(300,125)"><rect width="300" height="149" rx="13"/><text x="16" y="25" class="t">Tauri 0.1.0</text><text x="16" y="44" class="s">登录 / 绑定笔 / 五模块 UI</text><text x="16" y="64" class="s">v2 shell · 画布 · 本地缓存</text><text x="16" y="84" class="s">HTTPS 到 report-server</text><text x="16" y="104" class="s">无后端二进制 / 无数据库</text><text x="16" y="124" class="s">CSP 仅放行 127.0.0.1:8099</text></g>
+
+<!-- report-server 容器 -->
+<text x="660" y="110" class="lane">接入 / 业务 · report-server :8099（Go，单进程内嵌课堂）</text>
+<g class="node dark" transform="translate(660,120)"><rect width="480" height="500" rx="16"/><text x="18" y="28" class="t">ink-report-server</text><text x="18" y="48" class="s">/ink-report · REST /api/v1/* · 同源静态 · SSE</text></g>
+<g class="node" transform="translate(680,180)"><rect width="440" height="48" rx="10"/><text x="12" y="20" class="t">Auth / JWT / CORS / session</text><text x="12" y="37" class="s">扫码五件套 · dev-login（仅 dev）· 角色 scope</text></g>
+<g class="node" transform="translate(680,240)"><rect width="440" height="48" rx="10"/><text x="12" y="20" class="t">Pen / 绑定</text><text x="12" y="37" class="s">current · resolve · bind · warmup · unbind</text></g>
+<g class="node" transform="translate(680,300)"><rect width="440" height="48" rx="10"/><text x="12" y="20" class="t">Papers / Ink / 标注</text><text x="12" y="37" class="s">套题 · 页 · 笔迹 · page-questions · annotation</text></g>
+<g class="node" transform="translate(680,360)"><rect width="440" height="48" rx="10"/><text x="12" y="20" class="t">Reasoning Run</text><text x="12" y="37" class="s">run / events(SSE) / cancel · PG 状态 + 报告</text></g>
+<g class="node" transform="translate(680,420)"><rect width="440" height="48" rx="10"/><text x="12" y="20" class="t">Teacher 聚合</text><text x="12" y="37" class="s">班级 · 学生 · 差异 · 时间线 · scope</text></g>
+<g class="node" transform="translate(680,480)"><rect width="440" height="48" rx="10"/><text x="12" y="20" class="t">Classroom（内嵌）</text><text x="12" y="37" class="s">create / publish / end / SSE / projector · 无 18121</text></g>
+<g class="node" transform="translate(680,540)"><rect width="440" height="48" rx="10"/><text x="12" y="20" class="t">Static / healthz / readyz</text><text x="12" y="37" class="s">前端 dist · 探针 · 请求日志</text></g>
+
+<!-- Agent -->
+<text x="1200" y="110" class="lane">Agent / 模型 · 独立进程</text>
+<g class="node blue" transform="translate(1200,125)"><rect width="300" height="88" rx="13"/><text x="16" y="26" class="t">Agent :18099</text><text x="16" y="45" class="s">/ink-report/api/agent/chat</text><text x="16" y="63" class="s">Eino · 工具 · run/SSE</text></g>
+<g class="node dash" transform="translate(1200,235)"><rect width="300" height="64" rx="13"/><text x="16" y="25" class="t">DeepSeek / 本地模型</text><text x="16" y="44" class="s">仅服务端调用 · 无 key 走 fake</text></g>
+<g class="node warn" transform="translate(1200,320)"><rect width="300" height="64" rx="13"/><text x="16" y="25" class="t">内部契约 /internal/reasoning</text><text x="16" y="44" class="s">当前 404 · 跨仓 page_id/int 待修</text></g>
+
+<!-- 数据 -->
+<text x="1200" y="420" class="lane">数据 / 存储</text>
+<g class="node" transform="translate(1200,435)"><rect width="300" height="76" rx="13"/><text x="16" y="25" class="t">PostgreSQL · ink</text><text x="16" y="44" class="s">auth_session · pen_device/binding</text><text x="16" y="62" class="s">class_roster · reasoning_run/report · classroom</text></g>
+<g class="node warn" transform="translate(1200,530)"><rect width="300" height="76" rx="13"/><text x="16" y="25" class="t">MongoDB · question_bank（只读）</text><text x="16" y="44" class="s">question_bank_tyc_read · read 角色</text><text x="16" y="62" class="s">讲义 / 题目 / 作答框 · 禁止写</text></g>
+<g class="node dash" transform="translate(1200,625)"><rect width="300" height="76" rx="13"/><text x="16" y="25" class="t">Redis · ClassView（P2）</text><text x="16" y="44" class="s">有写无读 · 实时广播默认关闭</text><text x="16" y="62" class="s">不承担持久化</text></g>
+<g class="node dash" transform="translate(1200,720)"><rect width="300" height="76" rx="13"/><text x="16" y="25" class="t">Kafka / TDengine / OSS</text><text x="16" y="44" class="s">上游笔迹通道 · VPC 内网未验证</text><text x="16" y="62" class="s">当前未接 · 设计边界</text></g>
+
+<!-- 运维 -->
+<text x="44" y="830" class="lane">运维 / 发布 / 可观测</text>
+<g class="node" transform="translate(44,845)"><rect width="270" height="64" rx="13"/><text x="14" y="25" class="t">Kubernetes</text><text x="14" y="44" class="s">report-server · agent · PG/Redis 连接</text></g>
+<g class="node" transform="translate(334,845)"><rect width="290" height="64" rx="13"/><text x="14" y="25" class="t">Migrations B0–B4</text><text x="14" y="44" class="s">Job up/down · B5 未做 · 生产未演练</text></g>
+<g class="node" transform="translate(644,845)"><rect width="290" height="64" rx="13"/><text x="14" y="25" class="t">Smoke / rollback</text><text x="14" y="44" class="s">smoke-8099 · 10 项只读 · 开关矩阵</text></g>
+<g class="node" transform="translate(954,845)"><rect width="290" height="64" rx="13"/><text x="14" y="25" class="t">Prometheus / Loki</text><text x="14" y="44" class="s">四指标未实现 · 告警当前空转</text></g>
+<g class="node" transform="translate(1264,845)"><rect width="292" height="64" rx="13"/><text x="14" y="25" class="t">CSP / 安全边界</text><text x="14" y="44" class="s">仅 127.0.0.1:8099 · dev-login 双保险</text></g>
+
+<!-- 连接 -->
+<path class="flow a" d="M244 157 H300"/><path class="flow a" d="M244 242 H300"/>
+<text x="248" y="147" class="lbl">Tauri</text>
+<path class="flow a" d="M600 190 H660"/><text x="606" y="180" class="lbl">HTTPS /api/v1</text>
+<path class="flow" d="M1140 300 H1200"/><text x="1144" y="290" class="lbl">/api/agent</text>
+<path class="flow o" d="M1140 230 H1200"/><text x="1146" y="220" class="lbl">REST</text>
+<path class="flow" d="M1140 520 C1170 520 1170 470 1200 470"/><text x="1148" y="505" class="lbl">SQL</text>
+<path class="flow o" d="M1140 560 C1170 560 1170 570 1200 570"/><text x="1148" y="550" class="lbl">READ-ONLY</text>
+<path class="flow d" d="M1200 300 C1170 300 1170 625 1200 650"/><text x="1160" y="360" class="lbl">P2</text>
+<path class="flow d" d="M1200 760 C1140 760 1140 620 1140 620" text-anchor="end"/>
+<path class="flow a" d="M1350 213 V235"/><text x="1358" y="230" class="lbl">LLM</text>
+<path class="flow d" d="M1350 384 V435"/>
+<path class="flow d" d="M1200 400 C1160 400 1160 400 1140 400"/>
+<path class="flow d" d="M44 845 C44 880 1140 880 1140 620"/>
+
+<!-- 动态点 -->
+<circle class="dot" r="3.5"><animateMotion dur="4s" repeatCount="indefinite" path="M600 190 H660"/></circle>
+<circle class="dot" r="3.5"><animateMotion dur="4.6s" repeatCount="indefinite" path="M1140 300 H1200"/></circle>
+<circle class="dot" r="3.5"><animateMotion dur="5s" repeatCount="indefinite" path="M1140 520 C1170 520 1170 470 1200 470"/></circle>
+
+<text x="44" y="955" class="lbl">实线 = 当前实现；虚线灰 = 设计/P2/未接；橙虚线 = 上游只读或跨仓未对齐。不画不存在的 gateway / Redis 消费 / Kafka 已接。</text>
+<text x="44" y="977" class="lbl">依据：architect 00-MASTER + 06 契约 + 10 审计；backend agent/classroom 路由；ops 迁移/部署/监控；agent run/SSE。</text>
+<text x="1756" y="977" text-anchor="end" class="lbl">星途径智慧笔 · 架构 2026-11-14</text>
+</svg>
+</body></html>

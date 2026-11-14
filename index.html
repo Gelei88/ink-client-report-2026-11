@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>星途径智慧笔平台 · 客户端界面文档</title>
+<style>
+  :root{--ink:#1d1d1f;--ink2:#333;--ink3:#5c6270;--line:#e6eaf1;--sig:#0f66e0;--sig-soft:#eaf2ff;
+    --card:#fff;--grad:radial-gradient(circle at 54% -12%,rgba(0,84,255,.10),transparent 520px),
+      radial-gradient(circle at 96% 4%,rgba(141,180,255,.24),transparent 480px),
+      linear-gradient(180deg,#f6faff 0%,#eaf4ff 48%,#f8fbff 100%)}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--grad);background-attachment:fixed;color:var(--ink);
+    font:15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif}
+  .doc{max-width:1120px;margin:0 auto;padding:44px 36px 80px}
+  /* cover */
+  .cover{min-height:88vh;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--line);padding-bottom:40px}
+  .cover .kicker{font-family:ui-monospace,"SF Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--ink3)}
+  .cover h1{font-size:46px;line-height:1.12;letter-spacing:-.04em;margin:14px 0 10px}
+  .cover .sub{font-size:18px;color:var(--ink3);max-width:720px}
+  .cover .docmeta{display:flex;gap:26px;flex-wrap:wrap;margin-top:26px;font-size:12px;color:var(--ink3)}
+  .cover .docmeta b{color:var(--ink);font-weight:600}
+  .cover .hero{margin-top:30px;border-radius:14px;overflow:hidden;border:1px solid rgba(17,24,39,.08);background:#fff;box-shadow:0 24px 60px -45px rgba(15,40,80,.5)}
+  .cover .hero img{display:block;width:100%}
+  /* toc */
+  .toc{margin:38px 0 10px;padding:16px 20px;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:14px}
+  .toc .h{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;color:var(--ink3);margin-bottom:8px}
+  .toc ol{margin:0;padding-left:18px;columns:2;column-gap:36px;font-size:13px}
+  .toc li{margin:3px 0}.toc a{color:var(--ink2);text-decoration:none}.toc a:hover{color:var(--sig)}
+  /* sections */
+  section.chapter{margin:46px 0 20px;padding-top:8px;border-top:1px solid var(--line)}
+  .chapter .num{font-family:ui-monospace,monospace;font-size:11px;color:var(--sig);letter-spacing:.08em}
+  .chapter h2{font-size:26px;letter-spacing:-.03em;margin:4px 0 6px;line-height:1.25}
+  .chapter .lead{font-size:13px;color:var(--ink3);margin:0 0 16px;max-width:820px}
+  figure{margin:24px 0 30px}
+  .shot{border-radius:12px;overflow:hidden;border:1px solid rgba(17,24,39,.08);background:#fff;cursor:zoom-in;
+    box-shadow:0 16px 36px -34px rgba(15,40,80,.45)}
+  .shot img{display:block;width:100%}
+  figcaption{font-size:12px;color:var(--ink3);margin-top:7px;display:flex;gap:8px;align-items:baseline}
+  figcaption b{font-family:ui-monospace,monospace;font-size:10px;color:var(--sig);font-weight:600}
+  .arch figcaption a{color:var(--sig);text-decoration:none}
+  /* relation */
+  .flow{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:6px;align-items:stretch;margin:14px 0 6px}
+  .node{background:var(--sig-soft);border:1px solid var(--sig-soft);border-radius:12px;padding:8px 6px;text-align:center;min-width:0}
+  .node b{display:block;font-size:12px;line-height:1.35}.node span{display:block;font-size:10px;color:var(--ink3);margin-top:3px}
+  .node.alt{background:#fff;border-color:var(--line)}
+  .arrow{display:flex;align-items:center;justify-content:center;color:#8e8e93}
+  p.small{font-size:12.5px;color:var(--ink2);margin:12px 0 0}
+  /* lightbox */
+  .lb{position:fixed;inset:0;background:rgba(12,18,30,.9);display:none;align-items:center;justify-content:center;padding:24px;z-index:99;overflow:hidden}
+  .lb.on{display:flex}
+  .lb img{position:relative;z-index:1;max-width:95vw;max-height:88vh;border-radius:8px;user-select:none;cursor:grab;touch-action:none;
+    box-shadow:0 30px 80px rgba(0,0,0,.5);transform-origin:center center;will-change:transform}
+  .lb img.dragging{cursor:grabbing}
+  .lb .close{position:fixed;right:22px;top:16px;color:#fff;font-size:28px;cursor:pointer;background:none;border:0;z-index:3}
+  .zoombar{position:fixed;z-index:3;left:50%;bottom:20px;transform:translateX(-50%);display:flex;gap:6px;align-items:center;
+    background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:5px;backdrop-filter:blur(8px)}
+  .zoombar button{width:38px;height:32px;border:0;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font:600 14px/1 -apple-system;cursor:pointer}
+  .zoombar button:hover{background:rgba(255,255,255,.28)}
+  .zoombar .hint{font-size:11px;color:rgba(255,255,255,.7);padding:0 8px;white-space:nowrap}
+  @media(max-width:900px){.cover h1{font-size:34px}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.toc ol{columns:1}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <header class="cover">
+    <div class="kicker">客户端界面文档 · 2026-11-13 · v2.2</div>
+    <h1>星途径智慧笔平台</h1>
+    <div class="sub">老师端 / 学生端 / 五模块 / 整体架构</div>
+    <div class="docmeta">
+      <span><b>0.1.0</b> Tauri</span>
+      <span><b>feat/v2-embedded</b> @ dfa2d9b</span>
+      <span><b>2026-11-13 15:31</b> 构建</span>
+    </div>
+    <div class="hero"><img src="screens/00-login.png" alt="登录页"></div>
+  </header>
+
+  <nav class="toc">
+    <div class="h">目录</div>
+    <ol>
+      <li><a href="#arch">整体架构</a></li>
+      <li><a href="#bind">绑定笔</a></li>
+      <li><a href="#teacher">老师端</a></li>
+      <li><a href="#student">学生端</a></li>
+      <li><a href="#relation">模块关系</a></li>
+    </ol>
+  </nav>
+
+  <section class="chapter" id="arch">
+    <div class="num">01</div>
+    <h2>整体架构</h2>
+    <p class="lead">客户端、接入网关、业务服务、Agent、数据与运维的分层关系；上游 Mongo 只读，Redis 只做实时通道。</p>
+    <figure class="arch">
+      <div class="shot"><img src="screens/architecture.png" alt="整体架构"></div>
+      <figcaption><b>图 1</b>C4 容器图：Tauri → report-server :8099（Auth / Pen / Papers / Reasoning / Teacher / Classroom 内嵌）→ PostgreSQL；上游 Mongo 只读；Agent :18099 / DeepSeek；Redis、Kafka 为 P2/未接虚线。依据 architect 00-MASTER、06 契约、10 审计与 backend/agent/ops 文档。 <a href="architecture.html" target="_blank">动态版</a></figcaption>
+    </figure>
+  </section>
+
+  <section class="chapter" id="bind">
+    <div class="num">02</div>
+    <h2>绑定笔</h2>
+    <p class="lead">登录只认人，不认笔；绑定后再进入界面。右上角提供扫码绑笔。</p>
+    <figure><div class="shot"><img src="screens/01-bind.png" alt="绑定笔"></div><figcaption><b>图 2</b>绑定笔：MAC / GUID 输入，右上角扫码绑笔（品牌 logo 为「星」）。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/02-bind-loading.png" alt="拉取数据"></div><figcaption><b>图 3</b>拉取笔迹索引：验证笔 → 套题/页/题 → 准备推理数据。</figcaption></figure>
+  </section>
+
+  <section class="chapter" id="teacher">
+    <div class="num">03</div>
+    <h2>老师端</h2>
+    <p class="lead">标注 → 小笔 → 班级汇总 → 套题学生 → 资料室 → 笔迹中心 → 标注差异 → 智慧课堂。</p>
+    <figure><div class="shot"><img src="screens/anno-1-queue.png" alt="标注数据"></div><figcaption><b>图 4</b>标注数据：套题与页，进入标注中心。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/anno-2-workbench.png" alt="标注中心"></div><figcaption><b>图 5</b>标注中心：左符号与接地文本、中画布、右标注操作。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/teacher-ai.png" alt="小笔 AI"></div><figcaption><b>图 5</b>小笔 AI：带当前页/笔迹提问的对话入口。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/03-class-home.png" alt="班级汇总"></div><figcaption><b>图 6</b>推理中心 · 班级汇总：解析覆盖率、套题学生推理数据、需要关注。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/04-set-students.png" alt="套题学生"></div><figcaption><b>图 7</b>套题学生：一套题下全班状态、错因与没跑名单。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/07-library.png" alt="资料室"></div><figcaption><b>图 8</b>资料室：套题、考点、错题、AI 讲评包与班级缺口。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/09-strokes-class.png" alt="笔迹中心"></div><figcaption><b>图 9</b>笔迹中心：学生 × 套题矩阵、差异待核对。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/10-compare.png" alt="标注差异"></div><figcaption><b>图 10</b>标注差异：学生（红）与老师标准（绿）同坐标双画布。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/11-class-home.png" alt="课堂首页"></div><figcaption><b>图 11</b>智慧课堂：开始上课、今天的课、课前检查。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/12-class-live.png" alt="上课中"></div><figcaption><b>图 12</b>上课中：左工具、中实时画布、右学生状态与 AI 提示。</figcaption></figure>
+  </section>
+
+  <section class="chapter" id="student">
+    <div class="num">04</div>
+    <h2>学生端</h2>
+    <p class="lead">我的套题 → 选择一页 → 笔迹中心 → 资料室；学生只看到自己的数据。</p>
+    <figure><div class="shot"><img src="screens/13-student-reasoning.png" alt="学生套题"></div><figcaption><b>图 13</b>我的套题：写过的套题与解析进度。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/14-student-select.png" alt="学生选页"></div><figcaption><b>图 14</b>选择一页：页缩略、题数、解析状态。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/17-student-strokes.png" alt="学生笔迹"></div><figcaption><b>图 15</b>笔迹中心：自己的页、时间、完成情况，可回放/问小笔。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/student-library.png" alt="学生资料室"></div><figcaption><b>图 16</b>资料室：学生看到的套题与讲评资产。</figcaption></figure>
+  </section>
+
+  <section class="chapter" id="relation">
+    <div class="num">05</div>
+    <h2>模块关系</h2>
+    <p class="lead">同一份笔迹在标注、推理、资料与课堂之间流转；小笔 AI 横跨，数据中心是底座。</p>
+    <div class="flow">
+      <div class="node"><b>智慧笔</b><span>书写</span></div><div class="arrow">→</div>
+      <div class="node"><b>绑定 / 笔迹</b><span>MAC · 索引</span></div><div class="arrow">→</div>
+      <div class="node"><b>标注</b><span>老师标准</span></div><div class="arrow">→</div>
+      <div class="node"><b>推理</b><span>判断 / 依据</span></div><div class="arrow">→</div>
+      <div class="node"><b>资料室</b><span>套题 / 讲评包</span></div><div class="arrow">→</div>
+      <div class="node"><b>课堂</b><span>实时 / 课后</span></div>
+    </div>
+    <div class="flow" style="grid-template-columns:1fr 1fr 1fr">
+      <div class="node alt"><b>小笔 AI</b><span>横跨：问一句、解释、带上下文</span></div>
+      <div class="node alt"><b>笔迹数据中心</b><span>底座：同一份笔迹的事实层</span></div>
+      <div class="node alt"><b>老师 / 学生</b><span>同一批数据，两个视角</span></div>
+    </div>
+    <p class="small">标注产出「老师标准」，推理产出「判断」，资料室产出「讲评包」，课堂消费它们；老师看全班，学生只看自己。</p>
+  </section>
+
+</div>
+
+<div class="lb" id="lb">
+  <button class="close" id="close">×</button>
+  <div class="zoombar">
+    <button id="zout" aria-label="缩小">−</button>
+    <button id="zreset" aria-label="原始大小">1:1</button>
+    <button id="zin" aria-label="放大">＋</button>
+    <span class="hint" id="zhint">滚轮缩放 · 放大后拖动</span>
+  </div>
+  <img id="lbimg" alt="">
+</div>
+
+<script>
+  const lb=document.getElementById('lb'), im=document.getElementById('lbimg'), zhint=document.getElementById('zhint');
+  const zin=document.getElementById('zin'), zout=document.getElementById('zout'), zreset=document.getElementById('zreset');
+  let scale=1, tx=0, ty=0, drag=null;
+  function apply(){
+    im.style.transform=`translate(${tx}px, ${ty}px) scale(${scale})`;
+    im.style.cursor = scale>1 ? (drag?'grabbing':'grab') : 'default';
+    zhint.textContent = scale>1 ? '拖动画布 · 滚轮缩放' : '滚轮缩放 · 放大后拖动';
+  }
+  function setScale(v){ scale=Math.min(4,Math.max(0.6,v)); if(scale<=1){tx=0;ty=0;} apply(); }
+  function open(src){ im.src=src; scale=1; tx=0; ty=0; apply(); lb.classList.add('on'); }
+  document.querySelectorAll('.shot img').forEach(img=>img.addEventListener('click',()=>open(img.src)));
+  function close(){ lb.classList.remove('on'); drag=null; }
+  lb.addEventListener('click',e=>{if(e.target===lb)close();});
+  document.getElementById('close').addEventListener('click',close);
+  zin.addEventListener('click',e=>{e.stopPropagation();setScale(scale+0.25)});
+  zout.addEventListener('click',e=>{e.stopPropagation();setScale(scale-0.25)});
+  zreset.addEventListener('click',e=>{e.stopPropagation();scale=1;tx=0;ty=0;apply()});
+  im.addEventListener('pointerdown',e=>{
+    if(scale<=1) return;
+    drag={sx:e.clientX-tx, sy:e.clientY-ty};
+    im.setPointerCapture(e.pointerId); apply();
+  });
+  im.addEventListener('pointermove',e=>{
+    if(!drag) return;
+    tx=e.clientX-drag.sx; ty=e.clientY-drag.sy; apply();
+  });
+  im.addEventListener('pointerup',e=>{ if(!drag) return; drag=null; try{im.releasePointerCapture(e.pointerId)}catch(_){} apply(); });
+  im.addEventListener('pointercancel',()=>{drag=null;apply()});
+  lb.addEventListener('wheel',e=>{e.preventDefault();setScale(scale+(e.deltaY<0?0.15:-0.15));},{passive:false});
+  addEventListener('keydown',e=>{
+    if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') close();
+    if(e.key==='+'||e.key==='=') setScale(scale+0.25);
+    if(e.key==='-') setScale(scale-0.25);
+    if(e.key==='0'){scale=1;tx=0;ty=0;apply();}
+  });
+</script>
+</body></html>
