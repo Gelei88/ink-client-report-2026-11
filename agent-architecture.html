@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><style>
+*{box-sizing:border-box}html,body{margin:0;width:2400px;height:1600px;overflow:hidden}
+body{background:radial-gradient(circle at 52% -10%,rgba(0,84,255,.09),transparent 620px),radial-gradient(circle at 96% 6%,rgba(141,180,255,.20),transparent 560px),linear-gradient(180deg,#f8fbff,#edf5ff 48%,#fbfdff);font-family:-apple-system,"PingFang SC",sans-serif}
+.canvas{position:relative;width:2400px;height:1600px}
+.h1{position:absolute;left:44px;top:30px;font-size:28px;font-weight:750;letter-spacing:-.02em;color:#1d1d1f}
+.sub{position:absolute;left:44px;top:66px;font-size:12px;color:#5c6270}
+.band{position:absolute;border-radius:16px;background:rgba(255,255,255,.48);border:1px solid rgba(17,24,39,.06)}
+.bl{position:absolute;font:10px ui-monospace,monospace;letter-spacing:.14em;color:#5c6270}
+.card{position:absolute;z-index:2;background:#fff;border:1px solid rgba(17,24,39,.12);border-radius:14px;padding:12px 14px;overflow:hidden;box-shadow:0 8px 22px -26px rgba(15,40,80,.4)}
+.card.blue{background:#f2f7ff;border-color:#cfe0ff}.card.edge{background:#fff;border-color:#0f66e0;border-width:1.5px}.card.core{background:#f2f7ff;border-color:#cfe0ff}.card.core .ct{color:#1d1d1f}.card.core .cs{color:#5c6270}
+.ct{font-size:13px;font-weight:700;color:#1d1d1f;line-height:1.3}.cs{font-family:ui-monospace,monospace;font-size:9.5px;color:#5c6270;margin-top:3px;line-height:1.45}
+.chips{margin-top:7px;display:flex;gap:4px;flex-wrap:wrap}.chip{font-size:9px;padding:2px 6px;border-radius:999px;background:#eef3fb;color:#3a4658;border:1px solid #e3eaf5}
+.dot{position:absolute;right:10px;top:9px;width:6px;height:6px;border-radius:50%;background:#19a974;box-shadow:0 0 0 3px #e4f3ee}
+.arrowv{position:absolute;width:1.5px;background:#0f66e0;z-index:1}.arrowv:after{content:'';position:absolute;left:-4px;bottom:-1px;border:4.5px solid transparent;border-top-color:#0f66e0}
+.arrowh{position:absolute;height:1.5px;background:#0f66e0;z-index:1}.arrowh:after{content:'';position:absolute;right:-1px;top:-4px;border:4.5px solid transparent;border-left-color:#0f66e0}
+.al{position:absolute;z-index:2;font:9px ui-monospace,monospace;color:#5c6270;background:rgba(248,251,255,.92);padding:1px 4px;border-radius:4px}
+.legend{position:absolute;left:44px;bottom:28px;right:44px;display:flex;gap:20px;align-items:center;font-size:11px;color:#5c6270}
+.legend b{color:#1d1d1f}.legend i{display:inline-block;width:22px;border-top:2px solid #0f66e0;margin-right:6px;vertical-align:3px}
+.pill{display:inline-flex;height:20px;align-items:center;padding:0 7px;border-radius:999px;background:#eaf2ff;color:#0b4fb8;font-size:9px;font-weight:600}
+</style></head><body><div class="canvas">
+<div class="h1">小笔 Agent 架构 · 目标态</div>
+<div class="sub">内核 + 插件 + Eino 编排 + 四层记忆 + 离线 dreaming + 七角色 · 2026-11-15 · 依据 AGENT-ARCHITECTURE.md</div>
+
+<div class="band" style="left:40px;top:108px;width:1610px;height:214px"></div>
+<div class="bl" style="left:54px;top:116px">L4 交互层 · 客户端 / 代理</div>
+<div class="card edge" style="left:60px;top:146px;width:470px;height:150px"><div class="dot"></div><div class="ct">Tauri v2 客户端</div><div class="cs">小笔 AI 抽屉（420–480px）· AgentPanel 五态 · A2UI / 审批 / 记忆面板</div><div class="chips"><span class="chip">⌘K</span><span class="chip">五模块</span><span class="chip">推理面板</span><span class="chip">课堂副驾</span><span class="chip">讲评 HITL</span></div></div>
+<div class="card" style="left:560px;top:146px;width:420px;height:150px"><div class="dot"></div><div class="ct">report-server :8099</div><div class="cs">/api/v1/agent/* 代理 · 身份/scope · SSE relay · run 状态在 PG</div><div class="chips"><span class="chip">不生成推理</span><span class="chip">不写记忆</span><span class="chip">不调模型</span></div></div>
+<div class="card blue" style="left:1010px;top:146px;width:610px;height:150px"><div class="dot"></div><div class="ct">agent-server :18099 · 小笔运行时</div><div class="cs">/api/agent/chat · /internal/reasoning/runs · 内部 token · 不碰业务表</div><div class="chips"><span class="chip">chat SSE</span><span class="chip">run/SSE</span><span class="chip">证据校验</span><span class="chip">memory recall</span><span class="chip">dreaming</span><span class="chip">plugins</span></div></div>
+
+<div class="arrowv" style="left:295px;top:296px;height:64px"></div>
+<div class="al" style="left:300px;top:318px">上下文 / 事件 / SSE</div>
+
+<div class="band" style="left:40px;top:360px;width:1610px;height:330px"></div>
+<div class="bl" style="left:54px;top:368px">L3 编排层 · Eino ADK / Graphs / TurnLoop</div>
+<div class="card" style="left:60px;top:398px;width:360px;height:250px"><div class="dot"></div><div class="ct">TurnLoop（会话级）</div><div class="cs">idle / Push / preemption / abort / HITL / checkpoint / 可重建</div><div class="chips"><span class="chip">用户可打断</span><span class="chip">审批 item</span><span class="chip">持久化</span></div></div>
+<div class="card" style="left:450px;top:398px;width:350px;height:74px"><div class="ct">chat.graph · 学伴</div><div class="cs">context → ChatModelAgent (ReAct) → tools → text/UI/citations</div></div>
+<div class="card" style="left:450px;top:482px;width:350px;height:74px"><div class="ct">reasoning.graph · 按题</div><div class="cs">preflight → evidence tools → generate → schema/evidence validate</div></div>
+<div class="card" style="left:450px;top:566px;width:350px;height:74px"><div class="ct">teacher.graph · 讲评</div><div class="cs">class aggregate → diagnose → plan → HITL → publish/reminder</div></div>
+<div class="card" style="left:830px;top:398px;width:350px;height:74px"><div class="ct">classroom.graph · 副驾</div><div class="cs">event stream → detect state → hint → HITL → projector</div></div>
+<div class="card" style="left:830px;top:482px;width:350px;height:74px"><div class="ct">dream.graph · 离线</div><div class="cs">ingest → summarize → extract/verify → consolidate → promote</div></div>
+<div class="card" style="left:830px;top:566px;width:350px;height:74px"><div class="ct">content.graph · 内容</div><div class="cs">evidence → outline → draft → HITL review → publish draft</div></div>
+<div class="card blue" style="left:1210px;top:398px;width:410px;height:242px"><div class="dot"></div><div class="ct">Middleware 横切链</div><div class="cs">trace → safety(discipline/PII/injection) → context(budget/prefix)</div><div class="cs">→ memory(inject/record) → evidence(validate/cite) → quota/cost</div><div class="cs">→ tool-error-handler → retry/fallback → metrics</div><div class="chips"><span class="chip">bail 安全</span><span class="chip">工具失败可修</span><span class="chip">429 降级</span><span class="chip">span/cost</span></div></div>
+
+<div class="arrowv" style="left:295px;top:690px;height:40px"></div>
+<div class="band" style="left:40px;top:730px;width:1610px;height:190px"></div>
+<div class="bl" style="left:54px;top:738px">L2 能力层 · 同一内核，不同 manifest</div>
+<div class="card" style="left:60px;top:768px;width:216px;height:116px"><div class="dot"></div><div class="ct">学伴</div><div class="cs">单 Agent · 苏格拉底<br>首 token &lt;2s</div></div>
+<div class="card" style="left:288px;top:768px;width:216px;height:116px"><div class="dot"></div><div class="ct">诊断师</div><div class="cs">推理 run · 证据<br>6–10s</div></div>
+<div class="card" style="left:516px;top:768px;width:216px;height:116px"><div class="dot"></div><div class="ct">讲评师</div><div class="cs">班级聚合 · HITL<br>10–30s</div></div>
+<div class="card" style="left:744px;top:768px;width:216px;height:116px"><div class="dot"></div><div class="ct">课堂副驾</div><div class="cs">事件 · 提示 · 投屏<br>&lt;2s</div></div>
+<div class="card" style="left:972px;top:768px;width:216px;height:116px"><div class="dot"></div><div class="ct">内容编辑</div><div class="cs">讲评包/题 · 草稿<br>10–60s</div></div>
+<div class="card" style="left:1200px;top:768px;width:216px;height:116px"><div class="dot"></div><div class="ct">做梦者</div><div class="cs">离线 · 输出 store<br>分钟级</div></div>
+<div class="card" style="left:1428px;top:768px;width:210px;height:116px"><div class="dot"></div><div class="ct">质检员</div><div class="cs">eval / shadow / 回归<br>离线</div></div>
+
+<div class="arrowv" style="left:295px;top:920px;height:38px"></div>
+<div class="band" style="left:40px;top:960px;width:1610px;height:260px"></div>
+<div class="bl" style="left:54px;top:968px">L1 服务层 · 万物插件（稳定 key + manifest）</div>
+<div class="card" style="left:60px;top:998px;width:380px;height:88px"><div class="ct">模型 / 工具</div><div class="cs">model-deepseek · model-fake · tool-pen · tool-exam · tool-teacher-marks</div></div>
+<div class="card" style="left:460px;top:998px;width:380px;height:88px"><div class="ct">上下文 / 记忆</div><div class="cs">ctx-frame · ctx-summary · ctx-memory · ctx-recent · ctx-evidence · memory-hypergraph</div></div>
+<div class="card" style="left:860px;top:998px;width:380px;height:88px"><div class="ct">作业 / 教学 / UI</div><div class="cs">dream-session · dream-wiki · dream-decay · teaching-api · ui-a2ui-card · ui-approval</div></div>
+<div class="card" style="left:1260px;top:998px;width:360px;height:88px"><div class="ct">安全 / 评测 / 连接器</div><div class="cs">safety-pii · safety-injection · eval-contract · connector-pg/mongo-readonly</div></div>
+<div class="card" style="left:60px;top:1098px;width:1560px;height:100px"><div class="dot"></div><div class="ct">插件治理</div><div class="cs">manifest（capabilities / deps / config schema / health）· Shadow → Canary → Version/capability → Rollback · 内部 Go 进程内；第三方 RPC/WASM，学生侧禁 shell/文件</div><div class="chips"><span class="chip">生命週期</span><span class="chip">可逆 effect</span><span class="chip">反应式 coeffect</span><span class="chip">HMR</span><span class="chip">health</span><span class="chip">registry</span></div></div>
+
+<div class="arrowv" style="left:295px;top:1220px;height:38px"></div>
+<div class="band" style="left:40px;top:1260px;width:1610px;height:160px"></div>
+<div class="bl" style="left:54px;top:1268px">L0 内核 · Cordis 式</div>
+<div class="card core" style="left:60px;top:1298px;width:760px;height:100px"><div class="ct">Plugin / Context / Inject / Effect / Event</div><div class="cs">Service key · manifest · Provide/Service · 拓扑 apply · 逆序 dispose · emit/waterfall/parallel/serial/bail</div><div class="chips"><span class="chip">Booting</span><span class="chip">Applying</span><span class="chip">Ready</span><span class="chip">Degraded</span><span class="chip">Reloading</span><span class="chip">ShuttingDown</span></div></div>
+<div class="card" style="left:840px;top:1298px;width:780px;height:100px"><div class="ct">硬规则</div><div class="cs">内核不认具体工具/表/模型；只认 Service / Plugin / Stage / Job / Agent；事实只追加；写操作可审计；effect 逆序撤销。</div><div class="chips"><span class="chip">事实只追加</span><span class="chip">记忆离线</span><span class="chip">按需推理</span><span class="chip">证据优先</span></div></div>
+
+<!-- right rail -->
+<div class="band" style="left:1690px;top:108px;width:670px;height:600px;background:rgba(255,255,255,.55)"></div>
+<div class="bl" style="left:1704px;top:116px">记忆四层 · 请求路径只读装配</div>
+<div class="card" style="left:1704px;top:146px;width:640px;height:86px"><div class="ct">① Transcript / 事实层</div><div class="cs">agent_event：turn / 工具结果指针 / 注入 / 摘要 / 记忆变更 / 作业 · 只追加，永不改</div></div>
+<div class="arrowv" style="left:2020px;top:232px;height:20px"></div>
+<div class="card" style="left:1704px;top:252px;width:640px;height:86px"><div class="ct">② Notes / 记忆层</div><div class="cs">memory_node / edge / membership · candidate · confidence / tier / provenance · 离线晋升/衰减</div></div>
+<div class="arrowv" style="left:2020px;top:338px;height:20px"></div>
+<div class="card" style="left:1704px;top:358px;width:640px;height:86px"><div class="ct">③ Representations / wiki</div><div class="cs">主题页 + contains 边 · 离线可重建 · 旧页 supersede · 注入只放索引</div></div>
+<div class="arrowv" style="left:2020px;top:444px;height:20px"></div>
+<div class="card blue" style="left:1704px;top:464px;width:640px;height:86px"><div class="ct">④ Injected / 注入层</div><div class="cs">每轮 ≤900 tok · 索引/条目 · 不持久 · 可 shadow · 先过滤 scope，再打分</div><div class="chips"><span class="chip">filter</span><span class="chip">score</span><span class="chip">PPR</span><span class="chip">budget</span></div></div>
+<div class="card" style="left:1704px;top:566px;width:640px;height:120px"><div class="ct">检索公式</div><div class="cs">0.6·confidence + 0.2·recency + 0.2·importance（普通）<br>0.3·confidence + 0.6·recency + 0.1·importance（时间意图）<br>boost：图 PPR + 2-gram search_keys；向量后置</div></div>
+
+<div class="band" style="left:1690px;top:722px;width:670px;height:470px;background:rgba(255,248,232,.55);border-color:#e8d4a6"></div>
+<div class="bl" style="left:1704px;top:730px">Dreaming · 离线，不碰输入</div>
+<div class="card" style="left:1704px;top:760px;width:640px;height:150px"><div class="ct">DreamJob 状态机</div><div class="cs">pending → running → completed / failed / canceled</div><div class="chips"><span class="chip">lease</span><span class="chip">input_hash 幂等</span><span class="chip">retry ≤2</span><span class="chip">学生串行</span></div><div class="cs" style="margin-top:8px">输入 store + sessions → 输出 store；默认不合并；可审阅/丢弃/回滚</div></div>
+<div class="card" style="left:1704px;top:924px;width:640px;height:238px"><div class="ct">Pipeline</div><div class="cs">① ingest 读事件/会话指针<br>② summarize 四行摘要（引用逐字）<br>③ extract 候选 {kind,text,evidence,confidence}<br>④ verify 证据逐字 / 冲突 / 黑名单<br>⑤ consolidate 合并 / 补证据 / ACE<br>⑥ promote tier / evolution_log<br>⑦ represent wiki（只放索引）<br>⑧ audit 变更 / 可回滚</div><div class="chips"><span class="chip">9.6–18.8s</span><span class="chip">不在请求路径</span><span class="chip">不生成学生结论</span><span class="chip">不碰教师数据</span></div></div>
+
+<div class="band" style="left:1690px;top:1212px;width:670px;height:210px"></div>
+<div class="bl" style="left:1704px;top:1220px">数据 / 权限 / 非目标</div>
+<div class="card" style="left:1704px;top:1250px;width:640px;height:70px"><div class="ct">数据边界</div><div class="cs">PG：事实 / run / 记忆 / 作业 / 讲评 / 课堂；agent-store：JSONL；Mongo：只读；不存原始笔迹点位</div></div>
+<div class="card" style="left:1704px;top:1332px;width:640px;height:76px"><div class="ct">权限 · 安全 · 不做</div><div class="cs">学生只看自己 / 老师本班 / 投屏匿名 / 教师数据不进学生记忆；不做在线 dreaming、模型自改架构、跨学生私有记忆、自动发布/改分、学生 shell。</div></div>
+</div>
+
+
+<div class="arrowv" style="left:295px;top:690px;height:40px;z-index:5"></div>
+<div class="al" style="left:300px;top:702px">能力调用</div>
+<div class="arrowv" style="left:295px;top:920px;height:40px;z-index:5"></div>
+<div class="al" style="left:300px;top:932px">插件 / Service</div>
+<div class="arrowv" style="left:295px;top:1220px;height:40px;z-index:5"></div>
+<div class="al" style="left:300px;top:1232px">生命周期</div>
+<div class="arrowh" style="left:1620px;top:630px;width:70px;z-index:5"></div>
+<div class="al" style="left:1626px;top:612px">记忆读写 / 作业</div>
+<!-- arrows between bands / rail -->
+<div class="arrowv" style="left:295px;top:320px;height:40px"></div>
+<div class="al" style="left:300px;top:330px">SSE / context</div>
+<div class="arrowh" style="left:1650px;top:230px;width:38px"></div>
+<div class="al" style="left:1650px;top:208px">内部</div>
+<div class="arrowh" style="left:1600px;top:630px;width:88px"></div>
+<div class="al" style="left:1630px;top:608px">异步</div>
+
+<div class="legend"><span><b>目标态</b></span><span><i></i>同步调用 / 数据流</span><span><span class="pill">L0–L4</span> 分层</span><span><span class="pill">7 角色</span></span><span><span class="pill">6 graphs</span></span><span><span class="pill">4 层记忆</span></span><span style="margin-left:auto">核心：内核只做生命周期/组装/调度；模型/工具/记忆/作业/教学/UI/评测都是插件；事实只追加；记忆离线演化；推理按需运行。</span></div>
+</div></body></html>

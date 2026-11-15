@@ -95,6 +95,7 @@
       <div class="shot"><img src="screens/architecture.png" alt="整体架构"></div>
       <figcaption><b>图 1</b>目标态分层 C4（A1–A7 全部成立）：Tauri → Ingress → report :8099 / agent :18099 / classroom :18121；身份、题库、笔迹三条管线；PG 主从、Redis Streams、Kafka、Mongo 只读、TDengine+OSS；生产 k8s + 可观测 + CI/CD + 备份/PITR。所有节点 ✅，仅外部上游只读虚线。 <a href="architecture.html" target="_blank">动态版</a></figcaption>
     </figure>
+    <p style="font-size:13px;margin:14px 0 0"><a href="agent-architecture.html" style="color:#0f66e0;text-decoration:none">→ 小笔 Agent 架构图（L0–L4 / 7 角色 / 6 张 Eino graph / 四层记忆 / 离线 dreaming）</a></p>
   </section>
 
   <section class="chapter" id="bind">
