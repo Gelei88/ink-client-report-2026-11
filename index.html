@@ -14,13 +14,13 @@
     font:15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif}
   .doc{max-width:1120px;margin:0 auto;padding:44px 36px 80px}
   /* cover */
-  .cover{min-height:88vh;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--line);padding-bottom:40px}
+  .cover{display:block;border-bottom:1px solid var(--line);padding:8px 0 34px}
   .cover .kicker{font-family:ui-monospace,"SF Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--ink3)}
-  .cover h1{font-size:46px;line-height:1.12;letter-spacing:-.04em;margin:14px 0 10px}
+  .cover h1{font-size:34px;line-height:1.15;letter-spacing:-.04em;margin:10px 0 6px}
   .cover .sub{font-size:18px;color:var(--ink3);max-width:720px}
-  .cover .docmeta{display:flex;gap:26px;flex-wrap:wrap;margin-top:26px;font-size:12px;color:var(--ink3)}
+  .cover .docmeta{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--ink3)}
   .cover .docmeta b{color:var(--ink);font-weight:600}
-  .cover .hero{margin-top:30px;border-radius:14px;overflow:hidden;border:1px solid rgba(17,24,39,.08);background:#fff;box-shadow:0 24px 60px -45px rgba(15,40,80,.5)}
+  .cover .hero{margin:0 0 24px;border-radius:14px;overflow:hidden;border:1px solid rgba(17,24,39,.08);background:#fff;box-shadow:0 24px 60px -45px rgba(15,40,80,.5)}
   .cover .hero img{display:block;width:100%}
   /* toc */
   .toc{margin:38px 0 10px;padding:16px 20px;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:14px}
@@ -65,6 +65,7 @@
 <div class="doc">
 
   <header class="cover">
+    <div class="hero"><img src="screens/00-login.png" alt="登录页"></div>
     <div class="kicker">客户端界面文档 · 2026-11-13 · v2.2</div>
     <h1>星途径智慧笔平台</h1>
     <div class="sub">老师端 / 学生端 / 五模块 / 整体架构</div>
@@ -74,7 +75,6 @@
       <span><b>2026-11-13 15:31</b> 构建</span>
       <span><a href="usage-guide.html" style="color:#0f66e0;text-decoration:none;font-weight:600">使用说明 →</a></span>
     </div>
-    <div class="hero"><img src="screens/00-login.png" alt="登录页"></div>
   </header>
 
   <nav class="toc">
