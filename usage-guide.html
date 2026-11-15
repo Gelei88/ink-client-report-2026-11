@@ -8,139 +8,210 @@
   .doc{max-width:1120px;margin:0 auto;padding:42px 36px 80px}
   .top{display:flex;justify-content:space-between;align-items:center;font:11px ui-monospace,monospace;color:var(--ink3);letter-spacing:.04em;border-bottom:1px solid var(--line);padding-bottom:14px}
   .top a{color:var(--sig);text-decoration:none}
-  h1{font-size:38px;line-height:1.18;letter-spacing:-.04em;margin:32px 0 10px}
+  h1{font-size:38px;line-height:1.18;letter-spacing:-.04em;margin:30px 0 8px}
   .lead{font-size:16px;color:var(--ink3);max-width:860px;margin:0}
   .note{margin-top:18px;padding:13px 16px;border-left:3px solid var(--sig);background:rgba(255,255,255,.72);border-radius:0 12px 12px 0;font-size:13px;color:var(--ink2)}
   h2{font-size:22px;letter-spacing:-.02em;margin:34px 0 8px;padding-top:18px;border-top:1px solid var(--line)}
   h2 .n{font-family:ui-monospace,monospace;font-size:11px;color:var(--sig);margin-right:8px}
-  h3{font-size:15px;margin:18px 0 4px}
+  h3{font-size:15px;margin:0 0 5px}
   .sub{font-size:12.5px;color:var(--ink3);margin:0 0 12px}
   .toc{background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:22px 0;font-size:13px}
   .toc a{color:var(--ink2);text-decoration:none;margin-right:8px}.toc a:hover{color:var(--sig)}.toc i{color:var(--ink4);font-style:normal;margin-right:8px}
-  .step{background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:14px;padding:15px 18px;margin:12px 0}
-  .step .k{font:10px ui-monospace,monospace;color:var(--sig);letter-spacing:.1em}
-  .step h3{margin:4px 0 6px}.step p{margin:5px 0;font-size:13px;color:var(--ink2)}
-  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.tag{font-size:10px;border-radius:999px;padding:2px 7px;background:var(--sig-soft);color:#0b4fb8}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  .screen{background:rgba(255,255,255,.8);border:1px solid var(--line);border-radius:14px;padding:15px 18px}
+  .screen .k{font:10px ui-monospace,monospace;color:var(--sig);letter-spacing:.08em;margin-bottom:3px}
+  .screen p{margin:5px 0;font-size:12.5px;color:var(--ink2)}.screen p b{color:var(--ink)}
+  .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.tag{font-size:10px;border-radius:999px;padding:2px 7px;background:var(--sig-soft);color:#0b4fb8}
+  .full{grid-column:1/-1}
   table{width:100%;border-collapse:collapse;font-size:12px;background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:12px 0}
   th{text-align:left;font:10px ui-monospace,monospace;color:var(--ink3);letter-spacing:.05em;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:bottom}
   td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}
-  .flow{background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:12px 0;font-size:12.5px;color:var(--ink2)}
-  .flow b{color:var(--ink)}
-  .flow code{font:10.5px ui-monospace,monospace;color:#0b4fb8;background:#f0f5ff;padding:1px 5px;border-radius:4px}
-  .warn{background:#fff8e8;border:1px dashed #e2c17b}
+  .flow{background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:10px 0;font-size:12.5px;color:var(--ink2)}
+  .flow b{color:var(--ink)}code{font:10.5px ui-monospace,monospace;color:#0b4fb8;background:#f0f5ff;padding:1px 5px;border-radius:4px}
   .foot{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  @media(max-width:800px){h1{font-size:30px}table{font-size:11px}}
+  @media(max-width:800px){.grid{grid-template-columns:1fr}h1{font-size:30px}}
 </style></head>
 <body><div class="doc">
-<div class="top"><span>客户端使用说明 · 2026-11-15</span><span><a href="index.html">← 界面文档</a> · <a href="agent-architecture.html">Agent 架构</a></span></div>
+<div class="top"><span>客户端使用说明 · 2026-11-15</span><span><a href="index.html">← 界面文档</a></span></div>
 <h1>客户端使用说明</h1>
-<p class="lead">按实际使用路径编写：登录与绑定 → 老师端 → 学生端；每个界面写清入口、操作、前后模块关系，以及小笔 Agent 在该模块里的位置、输入和边界。</p>
-<div class="note">本文的目标态依据 <a href="agent-architecture.html" style="color:#0f66e0">小笔 Agent 架构（AGENT-ARCHITECTURE.md）</a>；界面截图见主文档图 1–18。Agent 不是悬浮聊天框，而是贯穿五个模块的内核能力。</div>
+<p class="lead">本文按实际使用路径说明每个界面：入口、操作、看到什么、与前后模块怎么交接，以及 Agent 在该界面里的位置、输入和边界。</p>
+<div class="note">阅读顺序：启动 → 老师端 → 学生端 → Agent 与模块交互 → 记忆/dreaming → 当前边界。界面图见文末图号索引。</div>
 
-<div class="toc"><b style="font:10px ui-monospace,monospace;color:var(--ink3);letter-spacing:.1em">目录</b><br>
-  <a href="#start">1 启动与绑定</a><i>·</i><a href="#teacher">2 老师端</a><i>·</i><a href="#student">3 学生端</a><i>·</i><a href="#matrix">4 模块 × Agent</a><i>·</i><a href="#memory">5 记忆与 dreaming</a><i>·</i><a href="#boundary">6 边界</a>
+<div class="toc"><b style="font:10px ui-monospace,monospace;color:var(--ink3);letter-spacing:.1em">文档结构</b><br>
+  <a href="#start">01 启动（3 个界面）</a><i>·</i><a href="#teacher">02 老师端（10 个界面）</a><i>·</i><a href="#student">03 学生端（4 个界面）</a><i>·</i><a href="#matrix">04 模块 × Agent</a><i>·</i><a href="#memory">05 记忆与 dreaming</a><i>·</i><a href="#boundary">06 当前边界</a>
 </div>
 
-<h2 id="start"><span class="n">01</span>启动与绑定笔</h2>
-<p class="sub">登录决定身份与 scope；绑定笔决定能看哪支笔的数据；两步都不经过 Agent。</p>
-<div class="step"><div class="k">图 3 · 登录</div><h3>选身份并登录</h3>
-<p>老师/助教或学生由登录身份决定；登录后先调 <code>/api/v1/me</code>，拿角色、班级、笔绑定状态。没有笔绑定则进入绑定页；老师可「稍后再说」进入只读首页。</p>
-<div class="tags"><span class="tag">身份决定权限</span><span class="tag">学生只看自己</span><span class="tag">老师只看本班</span></div></div>
-<div class="step"><div class="k">图 4 · 绑定笔</div><h3>输入 MAC/GUID 或扫码</h3>
-<p>输入笔身/包装上的 MAC 或 GUID；也可以点右上角「扫码绑笔」。绑定只写本地 <code>pen_device/pen_binding</code>，上游 <code>app.user_pen</code> 只读，不写回。绑定完成后才拉取套题、页和笔迹索引。</p>
-<p><b>Agent 位置：</b>本步骤没有 Agent 主体；绑定完成只提示「小笔可用」。未绑定数据不会被分析，也不会进入记忆。</p>
-<div class="tags"><span class="tag">上游只读</span><span class="tag">绑定后才可分析</span><span class="tag">不做身份反推</span></div></div>
+<h2 id="start"><span class="n">01</span>启动</h2>
+<p class="sub">3 个界面：登录、绑定笔、拉取数据；这一段没有 Agent 生成，只建立身份、scope 和数据范围。</p>
+<div class="grid">
+  <div class="screen"><div class="k">登录 · 封面</div><h3>选身份并扫码登录</h3>
+    <p><b>入口：</b>启动客户端后的第一屏。</p>
+    <p><b>操作：</b>在「老师/学生」中选一个身份，用阿里云/手机扫码或账号登录；登录后会先取当前用户、角色、班级和笔绑定状态。</p>
+    <p><b>结果：</b>已绑定笔 → 首页；未绑定 → 绑定页；老师可稍后绑定进入只读首页。</p>
+    <p><b>Agent/模块：</b>此处不启动 Agent。身份决定后面所有模块的 scope，学生只能看自己，老师只看本班。</p>
+    <div class="tags"><span class="tag">身份</span><span class="tag">scope</span><span class="tag">二维码</span></div></div>
 
-<h2 id="teacher"><span class="n">02</span>老师端：标注 → 班级 → 套题 → 资料 → 笔迹 → 课堂</h2>
-<p class="sub">老师的 Agent 不是替代判断，而是把「老师标准 + 班级证据」组织成可复核的建议。</p>
+  <div class="screen"><div class="k">图 3 · 绑定笔</div><h3>输入 MAC/GUID 或扫码</h3>
+    <p><b>入口：</b>登录后无有效绑定时自动进入。</p>
+    <p><b>操作：</b>输入笔身/包装上的 MAC 或 GUID；也可点右上角「扫码绑笔」；确认后进入拉取。</p>
+    <p><b>结果：</b>写入本地设备/绑定关系；上游设备信息只读，不写回。</p>
+    <p><b>Agent/模块：</b>无 Agent 主体；绑定只建立数据范围。未绑定的数据不分析、不进记忆。</p>
+    <div class="tags"><span class="tag">MAC/GUID</span><span class="tag">扫码入口</span><span class="tag">只读上游</span></div></div>
 
-<div class="step"><div class="k">图 5 · 标注数据</div><h3>先选套题与页</h3>
-<p>标注数据列出老师手里的套题和页；一套题显示页数、符号数、已标进度。点套题或页进入标注中心。这里是「老师标准」的入口。</p>
-<p><b>模块交接：</b>标注数据 → 标注中心；标注结果后面作为推理的 <code>required_mark</code> 证据，不是推理的替代品。</p></div>
+  <div class="screen full"><div class="k">图 4 · 拉取数据</div><h3>验证笔并拉取套题/页/笔迹</h3>
+    <p><b>入口：</b>绑定成功后自动进入。</p>
+    <p><b>操作：</b>看「验证笔身份 → 拉取笔迹索引 → 准备推理数据」三步；中途可取消。</p>
+    <p><b>结果：</b>完成后进入老师/学生首页；已拉取的索引不丢。</p>
+    <p><b>Agent/模块：</b>拉取结果决定首页能看到哪些套题与页；此时 Agent 仍不生成结论，只等待后续按需调用。</p>
+    <div class="tags"><span class="tag">长任务</span><span class="tag">可取消</span><span class="tag">数据范围</span></div></div>
+</div>
 
-<div class="step"><div class="k">图 6 · 标注中心</div><h3>画老师标准并保存</h3>
-<p>左侧选符号/接地文本和「只画未标注」；中间在讲义上画横线、圈、勾、叉；右侧选含义、原因、去向和「必标/可选/易错/个人」，完成后保存。顶部可切页、看未保存状态。</p>
-<p><b>Agent 位置：</b>标注中心不调用生成式 Agent；它产出「事实标准」。Agent 只能在后续推理/讲评中引用已保存的必勾，不能替老师改标准。</p>
-<div class="tags"><span class="tag">可追溯</span><span class="tag">必标/可选分离</span><span class="tag">Agent 只读引用</span></div></div>
+<h2 id="teacher"><span class="n">02</span>老师端</h2>
+<p class="sub">10 个界面，按「标注 → 小笔 → 班级 → 套题 → 资料 → 笔迹 → 差异 → 课堂」排列。</p>
+<div class="grid">
+  <div class="screen"><div class="k">图 5 · 标注数据</div><h3>选套题与页</h3>
+    <p><b>入口：</b>侧栏「标注数据」。</p>
+    <p><b>操作：</b>看套题卡（页数/符号数/已标进度），点套题或页卡进入标注中心。</p>
+    <p><b>结果：</b>进入对应页的标注工作台。</p>
+    <p><b>Agent/模块：</b>不调用生成式 Agent；它是老师标准的入口，后续推理只读引用已保存的必勾。</p>
+    <div class="tags"><span class="tag">套题</span><span class="tag">页</span><span class="tag">进度</span></div></div>
 
-<div class="step"><div class="k">图 7 · 小笔 AI</div><h3>带上下文提问，不自动下结论</h3>
-<p>从侧栏或模块内「问问小笔」打开右侧抽屉；顶部显示当前上下文 chips（套题 · 页 · 题 · 角色 · 记忆条数），可清除/切换。输入问题，Enter 发送，Shift+Enter 换行；可取消/打断。</p>
-<p><b>Agent 形态：</b><code>chat.graph</code> + TurnLoop；工具包括笔迹、题目、老师必勾、记忆；返回 text/reasoning/tool/evidence/UI/approval，未知 UI 回退纯文本。</p>
-<div class="tags"><span class="tag">⌘K</span><span class="tag">SSE</span><span class="tag">可打断</span><span class="tag">证据引用</span></div></div>
+  <div class="screen"><div class="k">图 6 · 标注中心</div><h3>画老师标准并保存</h3>
+    <p><b>入口：</b>标注数据 → 点套题/页。</p>
+    <p><b>操作：</b>左侧选符号/接地文本，中间在讲义上画横线/圈/勾/叉，右侧选含义、原因、去向和必标/可选/易错/个人；完成后保存。</p>
+    <p><b>结果：</b>形成可追溯的老师标准；可切页、看未保存状态。</p>
+    <p><b>Agent/模块：</b>Agent 不替老师改标准；标注结果是推理/讲评的事实输入，不是模型推断。</p>
+    <div class="tags"><span class="tag">老师标准</span><span class="tag">必标/可选</span><span class="tag">可追溯</span></div></div>
 
-<div class="step"><div class="k">图 8 · 班级汇总</div><h3>先看全班，再点套题/学生</h3>
-<p>看 32 个学生、5 套题、解析覆盖率、需要关注 6 人；右侧班级小结/高频错因/没跑名单。点套题进入套题学生板；点学生进入逐题。</p>
-<p><b>Agent 位置：</b><code>teacher.graph</code> 做班级聚合与错因聚类；只读班级 scope，不显示学生私有记忆原文；建议是「候选」，不自动发布。</p></div>
+  <div class="screen"><div class="k">图 7 · 小笔 AI</div><h3>带上下文提问</h3>
+    <p><b>入口：</b>侧栏「小笔 AI」、⌘K、模块内「问问小笔」。</p>
+    <p><b>操作：</b>看顶部上下文 chips（套题/页/题/角色/记忆条数），输入问题；Enter 发送，Shift+Enter 换行；可取消/打断。</p>
+    <p><b>结果：</b>流式返回文字、推理折叠、工具卡、证据引用、UI 卡或审批卡；未知 UI 回退纯文本。</p>
+    <p><b>Agent/模块：</b>chat 图 + TurnLoop，工具包括笔迹/题目/老师必勾/记忆；不能自动下结论或越权。</p>
+    <div class="tags"><span class="tag">⌘K</span><span class="tag">SSE</span><span class="tag">证据</span></div></div>
 
-<div class="step"><div class="k">图 9 · 套题学生</div><h3>一套题下的 32 张学生卡</h3>
-<p>按覆盖/状态/错因筛选；点卡片进入学生逐题；右侧可看讲评包、提醒没跑的人。顶部可导出、提醒。</p>
-<p><b>模块交接：</b>班级汇总 → 套题学生 → 学生逐题；三者都围绕同一套题，不跳层。老师侧 Agent 可解释差异，但不评人。</p></div>
+  <div class="screen"><div class="k">图 8 · 班级汇总</div><h3>先看全班</h3>
+    <p><b>入口：</b>侧栏「推理中心」。</p>
+    <p><b>操作：</b>看学生数/套题数/解析覆盖率/待关注；点套题进套题学生，点学生进逐题，点「查看全部」进学生列表。</p>
+    <p><b>结果：</b>定位需要关注的套题和学生。</p>
+    <p><b>Agent/模块：</b>teacher 图做班级聚合/错因聚类；只读本班 scope，不显示学生私有记忆；建议是候选，不自动发布。</p>
+    <div class="tags"><span class="tag">班级</span><span class="tag">聚合</span><span class="tag">不评人</span></div></div>
 
-<div class="step"><div class="k">图 10 · 资料室</div><h3>套题、考点、讲评包</h3>
-<p>看 AI 建议下节课用哪套、哪个考点、什么讲评包；点套题看资产；点「新建讲评包」生成草稿。</p>
-<p><b>Agent 位置：</b><code>content.graph</code> 先取证据再列大纲/草稿；生成后必须老师审核（采纳/编辑/删除/重生成），未审核不发布。</p>
-<div class="tags"><span class="tag">有依据</span><span class="tag">草稿</span><span class="tag">HITL 审核</span></div></div>
+  <div class="screen"><div class="k">图 9 · 套题学生</div><h3>一套题下的 32 张学生卡</h3>
+    <p><b>入口：</b>班级汇总 → 点套题。</p>
+    <p><b>操作：</b>按覆盖/状态/错因筛选；点卡片进学生逐题；右侧看讲评包/提醒没跑的人；可导出。</p>
+    <p><b>结果：</b>从套题层落到具体学生。</p>
+    <p><b>Agent/模块：</b>交接班级汇总 → 套题学生 → 学生逐题；Agent 可解释差异，但不评人、不跳层。</p>
+    <div class="tags"><span class="tag">套题</span><span class="tag">学生卡</span><span class="tag">提醒</span></div></div>
 
-<div class="step"><div class="k">图 11 · 笔迹中心</div><h3>学生 × 套题矩阵</h3>
-<p>看谁写了哪套、差异多少、谁未绑笔；右侧是最近提交和差异待核对。点学生或「对比」进入标注差异。</p>
-<p><b>Agent 位置：</b>笔迹中心本身不生成结论；Agent 可按需解释某一页的差异，但证据必须来自笔迹/标注，不允许读他人数据。</p></div>
+  <div class="screen"><div class="k">图 10 · 资料室</div><h3>套题、考点、讲评包</h3>
+    <p><b>入口：</b>侧栏「资料室」。</p>
+    <p><b>操作：</b>看 AI 建议、套题资产、考点/错题、讲评包；点「新建讲评包」生成草稿。</p>
+    <p><b>结果：</b>形成可复用的资料/讲评包草稿。</p>
+    <p><b>Agent/模块：</b>content 图先取证据再列大纲/草稿；必须老师审核（采纳/编辑/删除/重生成），未审核不发布。</p>
+    <div class="tags"><span class="tag">资料</span><span class="tag">讲评包</span><span class="tag">HITL</span></div></div>
 
-<div class="step"><div class="k">图 12 · 标注差异</div><h3>学生笔迹 vs 老师标准</h3>
-<p>左学生（红）、右老师（绿）同坐标双画布；顶部切「对照明细/双画布/时间分析/助教面板」，可切页、切学生。命中/漏标/错标分别看。</p>
-<p><b>Agent 位置：</b>可在差异页「问小笔」，输入是这一页/这个学生的证据；输出解释与引用，不评价学生能力。教师复核是 HITL。</p></div>
+  <div class="screen"><div class="k">图 11 · 笔迹中心</div><h3>学生 × 套题矩阵</h3>
+    <p><b>入口：</b>侧栏「笔迹数据中心」。</p>
+    <p><b>操作：</b>看谁写了哪套/多少差异/谁未绑笔；点「对比」进差异页，点学生看详情。</p>
+    <p><b>结果：</b>发现需要核对的差异。</p>
+    <p><b>Agent/模块：</b>本身不生成结论；Agent 只按需解释某一页/某一差异，证据来自笔迹和标注。</p>
+    <div class="tags"><span class="tag">矩阵</span><span class="tag">差异</span><span class="tag">未绑笔</span></div></div>
 
-<div class="step"><div class="k">图 13 · 课堂首页</div><h3>开始上课前的检查</h3>
-<p>看下一节时间、学生笔就绪数、讲义标注页数、投屏状态；点「开始上课」进课堂；历史课堂可进复盘。</p>
-<p><b>Agent 位置：</b>课前不生成课堂结论；只做检查与提示。课堂副驾只在进入课堂后启动。</p></div>
+  <div class="screen"><div class="k">图 12 · 标注差异</div><h3>学生笔迹 vs 老师标准</h3>
+    <p><b>入口：</b>笔迹中心 → 对比/差异；或学生逐题。</p>
+    <p><b>操作：</b>左学生（红）、右老师（绿）同坐标；切「对照明细/双画布/时间分析/助教面板」，切页/切学生；看命中/漏/错。</p>
+    <p><b>结果：</b>核对老师标准有没有被学生命中。</p>
+    <p><b>Agent/模块：</b>可问小笔解释这一页/这个差异；只读证据，不评价学生能力；教师复核是 HITL。</p>
+    <div class="tags"><span class="tag">双画布</span><span class="tag">命中/漏/错</span><span class="tag">复核</span></div></div>
 
-<div class="step"><div class="k">图 14 · 上课中</div><h3>左工具、中画布、右学生状态</h3>
-<p>切题、画笔/高亮、投屏、完成本题；右栏看学生状态和 AI 提示。AI 提示最多 1 条主提示 + 2 条候选，老师「采纳」后才投屏，未采纳不投屏。</p>
-<p><b>Agent 位置：</b><code>classroom.graph</code> 消费课堂事件；实时先本地绘制，统计 1–2s 聚合；AI 提示目标 &lt;2s，超时显示「暂无提示」。不自动发通知、不改课件、不显示未提交姓名到投屏。</p>
-<div class="tags"><span class="tag">低延迟</span><span class="tag">HITL 采纳</span><span class="tag">投屏匿名</span></div></div>
+  <div class="screen"><div class="k">图 13 · 课堂首页</div><h3>开始上课前的检查</h3>
+    <p><b>入口：</b>侧栏「智慧实时课堂」。</p>
+    <p><b>操作：</b>看下一节时间、笔就绪数、讲义标注页数、投屏状态；点「开始上课」。</p>
+    <p><b>结果：</b>进入课堂；或查看历史课堂复盘。</p>
+    <p><b>Agent/模块：</b>课前不生成课堂结论；副驾只在进入课堂后启动。</p>
+    <div class="tags"><span class="tag">课前检查</span><span class="tag">设备</span><span class="tag">投屏</span></div></div>
 
-<h2 id="student"><span class="n">03</span>学生端：只看自己的数据</h2>
-<div class="step"><div class="k">图 15 · 我的套题</div><h3>从自己的套题进入</h3>
-<p>学生看到自己写过的套题、47 页、132 题和解析进度；点套题进选页。没有班级、他人或教师数据入口。</p></div>
-<div class="step"><div class="k">图 16 · 选择一页</div><h3>选页后进入逐题</h3>
-<p>页卡显示页号、题数、已解析/未解析；点页进入推理中心。页是标注/推理/笔迹的共同单位。</p></div>
-<div class="step"><div class="k">图 17 · 学生笔迹中心</div><h3>看自己的页与回放</h3>
-<p>按时间看自己的页、完成情况、回放；可带着当前页问小笔。不能看他人笔迹。</p></div>
-<div class="step"><div class="k">图 18 · 学生资料室</div><h3>只看发给自己的资料</h3>
-<p>学生只看自己的套题与讲评资产；教师备课本、班级聚合不进入学生端。</p></div>
-<div class="flow"><b>学生推理面板（图 15/16 的下一层）：</b>未运行 → 点「问问小笔」→ 运行中（步骤+取消）→ 已解析（判断/依据/缺什么/证据）→ 可重跑/取消。未跑不显示假结论；取消不写结论、不占次数；重跑不覆盖旧版本。</div>
+  <div class="screen"><div class="k">图 14 · 上课中</div><h3>实时画布 + 学生状态</h3>
+    <p><b>入口：</b>课堂首页 → 开始上课。</p>
+    <p><b>操作：</b>左工具切题、画笔/高亮；中间实时画布；右侧学生状态/AI 提示；老师「采纳」后才投屏。</p>
+    <p><b>结果：</b>完成当前题/课堂；课后进入复盘。</p>
+    <p><b>Agent/模块：</b>classroom 图消费事件；提示最多 1 主 + 2 候选；延迟 &lt;2s；不自动投屏/发通知/改课件。</p>
+    <div class="tags"><span class="tag">实时</span><span class="tag">HITL 采纳</span><span class="tag">匿名投屏</span></div></div>
+</div>
+
+<h2 id="student"><span class="n">03</span>学生端</h2>
+<p class="sub">4 个界面 + 逐题推理面板；学生只看自己的数据。</p>
+<div class="grid">
+  <div class="screen"><div class="k">图 15 · 我的套题</div><h3>从自己的套题进入</h3>
+    <p><b>入口：</b>学生登录后首页。</p>
+    <p><b>操作：</b>看自己写过的套题、页数/题数/解析进度；点一套题进选页。</p>
+    <p><b>结果：</b>进入该套题的页列表。</p>
+    <p><b>Agent/模块：</b>不显示班级/他人/教师数据；小笔只能读自己的 context。</p>
+    <div class="tags"><span class="tag">我的套题</span><span class="tag">进度</span><span class="tag">只看自己</span></div></div>
+
+  <div class="screen"><div class="k">图 16 · 选择一页</div><h3>选页后进入逐题</h3>
+    <p><b>入口：</b>我的套题 → 点套题。</p>
+    <p><b>操作：</b>看 7 页缩略、题数、已解析/未解析；点页卡进入逐题。</p>
+    <p><b>结果：</b>进入该页的推理中心。</p>
+    <p><b>Agent/模块：</b>页是标注/推理/笔迹的共同单位；逐题面板点「问问小笔」才运行，未跑不显示假结论。</p>
+    <div class="tags"><span class="tag">页</span><span class="tag">题数</span><span class="tag">解析状态</span></div></div>
+
+  <div class="screen full"><div class="k">图 16 下一层 · 逐题推理中心</div><h3>未跑 → 运行 → 已解析</h3>
+    <p><b>操作：</b>未运行显示「这题还没有解析 + 问问小笔」；运行中显示步骤/取消；已解析显示判断、依据、考点覆盖、缺什么；可重跑/取消。</p>
+    <p><b>结果：</b>只解释这一题；旧结论保留，不覆盖。</p>
+    <p><b>Agent/模块：</b>reasoning 图；preflight → evidence tools → 结构化生成 → schema/证据校验；输出由后端写 run/report，Agent 不直接写业务表。</p>
+    <div class="tags"><span class="tag">按需运行</span><span class="tag">证据</span><span class="tag">可取消/重跑</span></div></div>
+
+  <div class="screen"><div class="k">图 17 · 学生笔迹中心</div><h3>自己的页与回放</h3>
+    <p><b>入口：</b>侧栏「笔迹数据中心」。</p>
+    <p><b>操作：</b>按时间看自己的页/完成情况；回放；带当前页问小笔。</p>
+    <p><b>结果：</b>回看自己的书写过程。</p>
+    <p><b>Agent/模块：</b>只读自己的笔迹；不能看他人；Agent 可解释当前页，不读别的学生数据。</p>
+    <div class="tags"><span class="tag">回放</span><span class="tag">自己的页</span><span class="tag">问小笔</span></div></div>
+
+  <div class="screen"><div class="k">图 18 · 学生资料室</div><h3>只看发给自己的资料</h3>
+    <p><b>入口：</b>侧栏「资料室」。</p>
+    <p><b>操作：</b>看自己的套题与讲评资产；点开看内容。</p>
+    <p><b>结果：</b>获得老师发布/关联的资料。</p>
+    <p><b>Agent/模块：</b>只读自己的资料；教师备课本/班级聚合不出现；内容发布由老师 HITL 完成。</p>
+    <div class="tags"><span class="tag">资料</span><span class="tag">讲评资产</span><span class="tag">角色隔离</span></div></div>
+</div>
 
 <h2 id="matrix"><span class="n">04</span>模块 × Agent 交互</h2>
-<p class="sub">同一内核、不同 manifest；入口在 L4，编排在 L3，能力在 L2/L1。客户端不直连 Agent。</p>
+<p class="sub">入口在客户端，编排在 Agent，能力在插件；客户端不直连 Agent/模型/数据库。</p>
 <table>
-  <tr><th>模块</th><th>Agent 入口</th><th>触发</th><th>Agent 看到 / 返回</th><th>不能做</th></tr>
+  <tr><th>模块</th><th>Agent 入口</th><th>触发</th><th>看什么/返回什么</th><th>不能做</th></tr>
   <tr><td>绑定笔</td><td>无主体</td><td>绑定完成</td><td>只提示「小笔可用」</td><td>不分析未绑定数据</td></tr>
-  <tr><td>标注数据/中心</td><td>无生成入口</td><td>保存老师标准</td><td>后续推理读取 required_mark</td><td>不替老师改标准</td></tr>
-  <tr><td>小笔 AI 全局</td><td>侧栏 / ⌘K</td><td>用户提问</td><td>上下文 chips + 工具 + 记忆 + 证据</td><td>不自动下结论、不越权</td></tr>
-  <tr><td>学生推理 12a/12b</td><td>右栏 AgentPanel</td><td>点「问问小笔」</td><td>reasoning.graph；判断/依据/缺什么</td><td>不自动跑、不评人</td></tr>
-  <tr><td>老师班级/套题</td><td>右栏建议/差异</td><td>进入班级/点学生</td><td>teacher.graph；聚合/错因/证据</td><td>不读学生私有记忆</td></tr>
-  <tr><td>资料室</td><td>AI 建议/新建包</td><td>进入/生成</td><td>content.graph；草稿/来源</td><td>不自动发布</td></tr>
-  <tr><td>笔迹中心/差异</td><td>「问小笔」</td><td>选页/学生</td><td>页级解释/差异证据</td><td>不读他人、不评人</td></tr>
-  <tr><td>智慧课堂 41/42</td><td>右栏 AI 提示</td><td>实时/课后</td><td>classroom.graph；提示/复盘</td><td>不自动投屏/发通知</td></tr>
-  <tr><td>记忆面板</td><td>小笔 AI → 我的记忆</td><td>查看/纠正/忘记</td><td>记忆条目 + 证据 + 置信</td><td>教师数据不进学生记忆</td></tr>
+  <tr><td>标注数据/中心</td><td>无生成入口</td><td>保存老师标准</td><td>推理后续读取 required_mark</td><td>不替老师改标准</td></tr>
+  <tr><td>小笔 AI 全局</td><td>侧栏/⌘K</td><td>用户提问</td><td>上下文 + 工具 + 记忆 + 证据</td><td>不自动下结论/越权</td></tr>
+  <tr><td>学生逐题推理</td><td>右栏 AgentPanel</td><td>点「问问小笔」</td><td>判断/依据/缺什么</td><td>不自动跑、不评人</td></tr>
+  <tr><td>老师班级/套题</td><td>右栏建议/差异</td><td>进入班级/点学生</td><td>聚合/错因/证据</td><td>不读学生私有记忆</td></tr>
+  <tr><td>资料室</td><td>AI 建议/新建包</td><td>进入/生成</td><td>草稿/来源/待补</td><td>不自动发布</td></tr>
+  <tr><td>笔迹/差异</td><td>「问小笔」</td><td>选页/学生</td><td>页级解释/差异证据</td><td>不读他人、不评人</td></tr>
+  <tr><td>智慧课堂</td><td>右栏 AI 提示</td><td>实时/课后</td><td>提示/举手摘要/复盘</td><td>不自动投屏/发通知</td></tr>
+  <tr><td>记忆面板</td><td>小笔 AI → 我的记忆</td><td>查看/纠正/忘记</td><td>记忆条目+证据+置信</td><td>教师数据不进学生记忆</td></tr>
 </table>
 
 <h3>五条关键交互链</h3>
-<div class="flow"><b>1. 登录 → 绑定 → 首页</b><br>客户端 → report-server <code>/me</code>、<code>/pen/*</code> → 本地 PG；不经过 Agent。绑定成功才建立 data scope。</div>
-<div class="flow"><b>2. 标注 → 推理</b><br>标注中心保存老师标准 → 推理 run 读取 <code>required_mark</code>/题目/笔迹 → <code>reasoning.graph</code> 生成报告 → 后端 PG 写 <code>reasoning_run/report</code>；Agent 不直接写业务表。</div>
+<div class="flow"><b>1. 登录 → 绑定 → 首页</b><br>客户端 → <code>/me</code>、<code>/pen/*</code> → 本地 PG；不经过 Agent。绑定成功才建立 data scope。</div>
+<div class="flow"><b>2. 标注 → 推理</b><br>标注中心保存老师标准 → 推理 run 读取 required_mark/题目/笔迹 → 结构化生成 → 后端 PG 写 run/report；Agent 不写业务表。</div>
 <div class="flow"><b>3. 推理 → 资料 → 课堂</b><br>已跑报告/班级聚合 → 讲评包草稿（老师 HITL）→ 课堂首页/上课中；课堂只消费已审核内容。</div>
-<div class="flow"><b>4. 课堂事件 → 副驾 → 投屏</b><br>课堂事件流 → <code>classroom.graph</code> 提示候选 → 老师采纳 → 投屏；未采纳不投屏，投屏匿名。</div>
-<div class="flow"><b>5. 会话 → 记忆 → dreaming</b><br><code>agent_event</code> 只追加 → 离线 dreaming 输出独立 store → 审阅/合并；请求路径只读注入 ≤900 tok；学生可纠正/忘记。</div>
+<div class="flow"><b>4. 课堂事件 → 副驾 → 投屏</b><br>事件流 → 提示候选 → 老师采纳 → 投屏；未采纳不投屏，投屏匿名。</div>
+<div class="flow"><b>5. 会话 → 记忆 → dreaming</b><br>事实事件只追加 → 离线 dreaming 输出独立 store → 审阅/合并；请求路径只读注入 ≤900 tok；学生可纠正/忘记。</div>
 
 <h2 id="memory"><span class="n">05</span>记忆、dreaming 与 Agent 边界</h2>
-<div class="step"><h3>四层记忆</h3><p>transcript 事实层只追加；notes 记忆层存 node/edge/candidate；wiki 是离线可重建的表示；注入层每轮 ≤900 tok，只读装配。检索先过滤 tenant/student/status，再按 confidence/recency/importance 排序，PPR 后置。</p></div>
-<div class="step"><h3>dreaming 不在请求路径</h3><p>会话结束/每日批/手动触发；pending→running→completed/failed/canceled；输入 store + sessions → 输出 store；默认不合并。单次 9.6–18.8s，所以不放在线；不生成学生结论、不碰教师数据。</p></div>
-<div class="step"><h3>Agent 的硬边界</h3><p>report-server 拥有身份/scope/业务表/run 状态；agent-server 只做生成/证据/记忆/插件运行；客户端不直连 Agent/模型/数据库；教师动作 HITL；学生只看自己；不自动发布、不改分、不开放 shell。</p></div>
+<div class="grid">
+  <div class="screen"><h3>四层记忆</h3><p>transcript 事实层只追加；notes 记忆层存 node/edge/candidate；wiki 是离线可重建的表示；注入层每轮 ≤900 tok，只读装配。检索先过滤 tenant/student/status，再按 confidence/recency/importance 排序，PPR 后置。</p></div>
+  <div class="screen"><h3>dreaming 不在请求路径</h3><p>会话结束/每日批/手动触发；pending → running → completed/failed/canceled；输入 store + sessions → 输出 store；默认不合并。单次 9.6–18.8s，不放在线；不生成学生结论、不碰教师数据。</p></div>
+  <div class="screen full"><h3>Agent 的硬边界</h3><p>身份/scope/业务表/run 状态在 report-server；Agent 只做生成/证据/记忆/插件运行；客户端不直连 Agent/模型/数据库；教师动作 HITL；学生只看自己；不自动发布、不改分、不开放 shell。</p></div>
+</div>
 
 <h2 id="boundary"><span class="n">06</span>当前可用范围</h2>
 <p class="sub">按界面能走通的路径；没有的写清楚，不把目标态当现状。</p>
 <p><b>可以走通：</b>登录、绑定笔（含扫码）、标注数据/标注中心、小笔 AI、班级汇总、套题学生、资料室、笔迹中心、标注差异、课堂首页/上课中、学生端套题/选页/笔迹/资料。</p>
-<p><b>当前未接：</b>真实 SSO/组织同步、page_id 全量、symbol-service、content-pipeline、classroom-gateway :18121、生产 k8s/告警；这些在图 1 用虚线标为设计/未接。</p>
+<p><b>当前未接：</b>真实 SSO/组织同步、page_id 全量、symbol-service、content-pipeline、classroom-gateway :18121、生产 k8s/告警；这些在目标架构图里用虚线标为设计/未接。</p>
 <p><b>使用顺序建议：</b>先按「登录 → 绑定 → 标注 → 班级 → 套题 → 学生 → 课堂」走一遍；每一步确认角色、scope、证据和 HITL，再扩到真实数据。</p>
 
-<div class="foot"><span>客户端使用说明 · 2026-11-15</span><span><a href="index.html" style="color:#0f66e0">界面文档</a> · <a href="agent-architecture.html" style="color:#0f66e0">Agent 架构</a></span></div>
+<div class="foot"><span>客户端使用说明 · 2026-11-15</span><span><a href="index.html" style="color:#0f66e0">界面文档</a></span></div>
 </div></body></html>
