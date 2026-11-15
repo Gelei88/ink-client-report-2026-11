@@ -95,41 +95,44 @@
       <div class="shot"><img src="screens/architecture.png" alt="整体架构"></div>
       <figcaption><b>图 1</b>目标态分层 C4（A1–A7 全部成立）：Tauri → Ingress → report :8099 / agent :18099 / classroom :18121；身份、题库、笔迹三条管线；PG 主从、Redis Streams、Kafka、Mongo 只读、TDengine+OSS；生产 k8s + 可观测 + CI/CD + 备份/PITR。所有节点 ✅，仅外部上游只读虚线。 <a href="architecture.html" target="_blank">动态版</a></figcaption>
     </figure>
-    <p style="font-size:13px;margin:14px 0 0"><a href="agent-architecture.html" style="color:#0f66e0;text-decoration:none">→ 小笔 Agent 架构图（L0–L4 / 7 角色 / 6 张 Eino graph / 四层记忆 / 离线 dreaming）</a></p>
+    <figure>
+      <div class="shot"><img src="screens/agent-architecture.png" alt="小笔 Agent 架构"></div>
+      <figcaption><b>图 2</b>小笔 Agent 目标态：L0 内核 → L1 服务插件 → L2 七角色 → L3 Eino 六图 / TurnLoop / middleware → L4 客户端交互；右侧四层记忆与离线 dreaming。 <a href="agent-architecture.html" target="_blank">单独打开</a></figcaption>
+    </figure>
   </section>
 
   <section class="chapter" id="bind">
     <div class="num">02</div>
     <h2>绑定笔</h2>
     <p class="lead">登录只认人，不认笔；绑定后再进入界面。右上角提供扫码绑笔。</p>
-    <figure><div class="shot"><img src="screens/01-bind.png" alt="绑定笔"></div><figcaption><b>图 2</b>绑定笔：MAC / GUID 输入，右上角扫码绑笔（品牌 logo 为「星」）。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/02-bind-loading.png" alt="拉取数据"></div><figcaption><b>图 3</b>拉取笔迹索引：验证笔 → 套题/页/题 → 准备推理数据。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/01-bind.png" alt="绑定笔"></div><figcaption><b>图 3</b>绑定笔：MAC / GUID 输入，右上角扫码绑笔（品牌 logo 为「星」）。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/02-bind-loading.png" alt="拉取数据"></div><figcaption><b>图 4</b>拉取笔迹索引：验证笔 → 套题/页/题 → 准备推理数据。</figcaption></figure>
   </section>
 
   <section class="chapter" id="teacher">
     <div class="num">03</div>
     <h2>老师端</h2>
     <p class="lead">标注 → 小笔 → 班级汇总 → 套题学生 → 资料室 → 笔迹中心 → 标注差异 → 智慧课堂。</p>
-    <figure><div class="shot"><img src="screens/anno-1-queue.png" alt="标注数据"></div><figcaption><b>图 4</b>标注数据：套题与页，进入标注中心。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/anno-2-workbench.png" alt="标注中心"></div><figcaption><b>图 5</b>标注中心：左符号与接地文本、中画布、右标注操作。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/teacher-ai.png" alt="小笔 AI"></div><figcaption><b>图 5</b>小笔 AI：带当前页/笔迹提问的对话入口。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/03-class-home.png" alt="班级汇总"></div><figcaption><b>图 6</b>推理中心 · 班级汇总：解析覆盖率、套题学生推理数据、需要关注。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/04-set-students.png" alt="套题学生"></div><figcaption><b>图 7</b>套题学生：一套题下全班状态、错因与没跑名单。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/07-library.png" alt="资料室"></div><figcaption><b>图 8</b>资料室：套题、考点、错题、AI 讲评包与班级缺口。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/09-strokes-class.png" alt="笔迹中心"></div><figcaption><b>图 9</b>笔迹中心：学生 × 套题矩阵、差异待核对。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/10-compare.png" alt="标注差异"></div><figcaption><b>图 10</b>标注差异：学生（红）与老师标准（绿）同坐标双画布。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/11-class-home.png" alt="课堂首页"></div><figcaption><b>图 11</b>智慧课堂：开始上课、今天的课、课前检查。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/12-class-live.png" alt="上课中"></div><figcaption><b>图 12</b>上课中：左工具、中实时画布、右学生状态与 AI 提示。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/anno-1-queue.png" alt="标注数据"></div><figcaption><b>图 5</b>标注数据：套题与页，进入标注中心。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/anno-2-workbench.png" alt="标注中心"></div><figcaption><b>图 6</b>标注中心：左符号与接地文本、中画布、右标注操作。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/teacher-ai.png" alt="小笔 AI"></div><figcaption><b>图 7</b>小笔 AI：带当前页/笔迹提问的对话入口。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/03-class-home.png" alt="班级汇总"></div><figcaption><b>图 8</b>推理中心 · 班级汇总：解析覆盖率、套题学生推理数据、需要关注。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/04-set-students.png" alt="套题学生"></div><figcaption><b>图 9</b>套题学生：一套题下全班状态、错因与没跑名单。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/07-library.png" alt="资料室"></div><figcaption><b>图 10</b>资料室：套题、考点、错题、AI 讲评包与班级缺口。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/09-strokes-class.png" alt="笔迹中心"></div><figcaption><b>图 11</b>笔迹中心：学生 × 套题矩阵、差异待核对。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/10-compare.png" alt="标注差异"></div><figcaption><b>图 12</b>标注差异：学生（红）与老师标准（绿）同坐标双画布。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/11-class-home.png" alt="课堂首页"></div><figcaption><b>图 13</b>智慧课堂：开始上课、今天的课、课前检查。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/12-class-live.png" alt="上课中"></div><figcaption><b>图 14</b>上课中：左工具、中实时画布、右学生状态与 AI 提示。</figcaption></figure>
   </section>
 
   <section class="chapter" id="student">
     <div class="num">04</div>
     <h2>学生端</h2>
     <p class="lead">我的套题 → 选择一页 → 笔迹中心 → 资料室；学生只看到自己的数据。</p>
-    <figure><div class="shot"><img src="screens/13-student-reasoning.png" alt="学生套题"></div><figcaption><b>图 13</b>我的套题：写过的套题与解析进度。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/14-student-select.png" alt="学生选页"></div><figcaption><b>图 14</b>选择一页：页缩略、题数、解析状态。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/17-student-strokes.png" alt="学生笔迹"></div><figcaption><b>图 15</b>笔迹中心：自己的页、时间、完成情况，可回放/问小笔。</figcaption></figure>
-    <figure><div class="shot"><img src="screens/student-library.png" alt="学生资料室"></div><figcaption><b>图 16</b>资料室：学生看到的套题与讲评资产。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/13-student-reasoning.png" alt="学生套题"></div><figcaption><b>图 15</b>我的套题：写过的套题与解析进度。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/14-student-select.png" alt="学生选页"></div><figcaption><b>图 16</b>选择一页：页缩略、题数、解析状态。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/17-student-strokes.png" alt="学生笔迹"></div><figcaption><b>图 17</b>笔迹中心：自己的页、时间、完成情况，可回放/问小笔。</figcaption></figure>
+    <figure><div class="shot"><img src="screens/student-library.png" alt="学生资料室"></div><figcaption><b>图 18</b>资料室：学生看到的套题与讲评资产。</figcaption></figure>
   </section>
 
   <section class="chapter" id="relation">
