@@ -13,6 +13,17 @@
   body{margin:0;background:var(--grad);background-attachment:fixed;color:var(--ink);
     font:15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif}
   .doc{max-width:1120px;margin:0 auto;padding:44px 36px 80px}
+  /* core effect */
+  .feature{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:center;margin:26px 0 10px;padding:20px 22px;border-radius:18px;background:linear-gradient(135deg,rgba(234,242,255,.9),rgba(255,255,255,.85));border:1px solid #d9e6ff;box-shadow:0 14px 32px -30px rgba(15,40,80,.4)}
+  .feature .k{font:10px ui-monospace,monospace;letter-spacing:.14em;color:var(--sig)}
+  .feature h2{border:0;margin:5px 0 6px;padding:0;font-size:24px}
+  .feature p{margin:0 0 10px;font-size:13px;color:var(--ink3)}
+  .feature a{color:var(--sig);font-size:12.5px;text-decoration:none;font-weight:600}
+  .feature .thumbs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .feature .thumbs a{display:block;background:#fff;border:1px solid rgba(17,24,39,.1);border-radius:10px;overflow:hidden;color:var(--ink3);font-size:10px}
+  .feature .thumbs img{display:block;width:100%;height:92px;object-fit:cover;object-position:top}
+  .feature .thumbs span{display:block;padding:5px 7px;font:10px ui-monospace,monospace;color:var(--ink3)}
+  @media(max-width:800px){.feature{grid-template-columns:1fr}}
   /* cover */
   .cover{display:block;border-bottom:1px solid var(--line);padding:8px 0 34px}
   .cover .kicker{font-family:ui-monospace,"SF Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--ink3)}
@@ -78,6 +89,19 @@
       <span><a href="usage-guide.html" style="color:#0f66e0;text-decoration:none;font-weight:600">使用说明 →</a></span>
     </div>
   </header>
+
+  <section class="feature">
+    <div>
+      <div class="k">核心效果 · 先看这里</div>
+      <h2>学员做完题后，平台多给了他什么</h2>
+      <p>不是「答案 + 解析」：用他自己的笔迹、老师必勾、题目考点和作答，生成「哪一步想错、依据是什么、还缺什么」，再由小笔继续追问。</p>
+      <a href="reasoning-demo.html">打开完整效果页 →</a> <span style="color:#8e8e93;margin:0 6px">·</span> <a href="demo-runbook.html">19 号演示 Runbook →</a>
+    </div>
+    <div class="thumbs">
+      <a href="reasoning-demo.html"><img src="screens/12a-question.png" alt="运行前"><span>运行前：有笔迹/老师标准，还没结论</span></a>
+      <a href="reasoning-demo.html"><img src="screens/12b-result.png" alt="运行后"><span>运行后：判断/依据/思路/缺什么</span></a>
+    </div>
+  </section>
 
   <nav class="toc">
     <div class="h">目录</div>
