@@ -29,7 +29,7 @@
   .foot{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   @media(max-width:800px){.flow{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}h1{font-size:30px}}
 </style></head><body><div class="doc">
-<div class="top"><span>核心效果 · 2026-11-16</span><span><a href="index.html">← 界面文档</a> · <a href="usage-guide.html">使用说明</a></span></div>
+<div class="top"><span>核心效果 · 2026-11-16</span><span><a href="index.html">← 界面文档</a> · <a href="usage-guide.html">使用说明</a> · <a href="demo-runbook.html">演示 Runbook</a></span></div>
 <h1>学员用笔做完题之后，<br>平台到底多给了他什么</h1>
 <p class="lead">不是把“答案 + 解析”搬到屏幕上。学员用智慧笔写下的过程、老师标出的必勾、题目考点和解析，会一起进入一次推理运行；输出是「这一题你哪一步想错了、依据是什么、还缺什么」，再通过小笔对话继续追问，形成自己的画像。</p>
 <div class="quote">普通答案解析回答「正确答案为什么是 B」；这份推理回答「你为什么会选 C、你在哪一步把关系看成了转折、下一次遇到同类题先看哪里」。</div>
@@ -64,6 +64,13 @@
   <p><b>下一步：</b>补一句「我为什么选 C」或再跑一次；重跑保留旧结论。</p>
 </div>
 <div class="tags"><span class="tag">结论只解释这题</span><span class="tag">不评人</span><span class="tag">证据可回看</span><span class="tag">重跑不覆盖旧版本</span></div>
+
+<h2><span class="n">03b</span>老师端：同一批证据</h2>
+<p class="sub">学生做完后，老师看到的是同一批笔迹/标注/推理证据的班级视图，不是另一套数据。</p>
+<div class="shot"><img src="screens/03-class-home.png" alt="老师班级汇总"></div>
+<div class="cap">班级汇总：32 学生 / 5 套题 / 解析覆盖率 / 需要关注；套题旁边带学生推理情况。</div>
+<div class="shot"><img src="screens/10-compare.png" alt="老师标注差异"></div>
+<div class="cap">标注差异：左学生（红）/右老师（绿）同坐标双画布；命中/漏标/错标分开；老师可切页、切学生，复核是 HITL。</div>
 
 <h2><span class="n">04</span>这不是一个更聪明的聊天框</h2>
 <table>
